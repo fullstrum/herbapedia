@@ -1,0 +1,16 @@
+<table id="herb_names-table" class="table table-hover table-striped">
+  <thead>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Call Sign</th>
+  <th></th>
+  </thead>
+  <tbody>
+    <%= f.fields_for(:herb_names) do |name| %>
+      <tr class="fields">
+        <td><%= name.text_field(:name) %></td>
+        <td><%= name.text_field(:pronunciation) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

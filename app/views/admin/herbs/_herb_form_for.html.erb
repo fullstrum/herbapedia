@@ -1,0 +1,30 @@
+<%= form_for(@herb, :html => {:class => "form form-horizontal" }) do |f| %>
+    <fieldset>
+      <div class="control-group">
+        <%= f.label(:description, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:description, :class => "input-xlarge") %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label(:history, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:history, :class => "input-xlarge") %>
+        </div>
+      </div>
+
+    </fieldset>
+
+    <fieldset>
+      <legend>Pilots </legend>
+      <%= render('herb_names_form_for', :f => f) %>
+      <%= link_to_add_fields("Add a Pilot", f, :herb_names, :class => "btn btn-primary", :title => "Add a new Pilot to the list of Pilots that fly this Ship.") %>
+      <p></p>
+    </fieldset>
+
+    <div class="modal-footer">
+      <%= f.submit("Save", :class => "btn btn-primary", :title => "Save the changes to this Ship.") %>
+    </div>
+<% end %>
+

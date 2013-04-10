@@ -1,0 +1,144 @@
+<%= semantic_form_for [:admin, @herb] do |a| %>
+ 
+  <%= a.inputs "Herb" do %>
+      <%= a.input :description  %>
+      <%= a.input :history  %>
+      <%= a.input :toxicity  %>
+      
+      <%= a.input :regions, :as => :check_boxes %>
+  <% end %>
+  <%= a.inputs :name => "Medicinal", :for => :medicinal do |med| %>
+    <%= med.input :content,  :label => "Medicinal Uses", :required => true %>
+  <% end %>
+
+  <%= a.inputs "Names" do %>
+    <table>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+      </tr>
+ 
+      <%= a.semantic_fields_for :herb_names do |b| %>
+        <tr>
+          <td><%= b.input :name, :label => false %></td>
+          <td><%= b.input :primary, :label => false %></td>
+          <td><%= b.input :pronunciation, :label => false %></td>
+          <td><%= b.input :name_type, :as => :select %></td>
+          <td><%= link_to "Remove", "#", onclick: "
+              if (confirm('Are you sure you want to delete this?\
+              \\nIt will be permanently deleted!')) {
+                $.ajax({url: '/children/#{b.object.id}', type: 'DELETE'});
+                $(this).closest('tr').remove(); return false;
+              }", :class => "button" %></td>
+        </tr>
+      <% end %>
+ 
+      <% js = a.semantic_fields_for :herb_names, HerbName.new do |c| %>
+        <tr>
+          <td><%= c.input :name, :label => false %></td>
+          <td><%= c.input :primary, :label => false %></td>
+          <td><%= c.input :pronunciation, :label => false %></td>
+          <td><%= c.input :name_type, :as => :select %></td>
+          <td><%= link_to "Remove", "#", :onclick => "$(this).closest('tr').remove(); return false;", :class => "button" %></td>
+        </tr>
+      <% end %>
+ 
+    </table>
+ 
+    <span class="add-child">
+      <% js = escape_javascript(js) %>
+      <%= link_to I18n.t('active_admin.has_many_new',
+          model: @child.to_s.singularize.titlecase), "#",
+          onclick: "$('table.children tr').last().after('#{js}'
+                    .replace(/[0-9]+(?=[\\\]_])/g, new Date().getTime()));
+                    return false;
+                   ",
+          class: "button" %>
+    </span>
+  <% end %>
+ 
+  <%= a.actions do %>
+    <%= a.action :submit %>
+    <li class="cancel"><%= link_to "Cancel", [:admin, @herb] %></li>
+  <% end %>
+ 
+<% end %>
+
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        Collapsible Group Item #1
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse in">
+      <div class="accordion-inner">
+        Anim pariatur cliche...
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+        Collapsible Group Item #2
+      </a>
+    </div>
+    <div id="collapseTwo" class="accordion-body collapse">
+      <div class="accordion-inner">
+        Anim pariatur cliche...
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="accordion">
+  <h3>Section 1</h3>
+  <div>
+    <p>
+    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+    </p>
+  </div>
+  <h3>Section 2</h3>
+  <div>
+    <p>
+    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+    suscipit faucibus urna.
+    </p>
+  </div>
+  <h3>Section 3</h3>
+  <div>
+    <p>
+    Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+    Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+    ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+    lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+    </p>
+    <ul>
+      <li>List item one</li>
+      <li>List item two</li>
+      <li>List item three</li>
+    </ul>
+  </div>
+  <h3>Section 4</h3>
+  <div>
+    <p>
+    Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+    mauris vel est.
+    </p>
+    <p>
+    Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+    inceptos himenaeos.
+    </p>
+  </div>
+</div>
