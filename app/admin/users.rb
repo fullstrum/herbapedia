@@ -15,7 +15,7 @@ ActiveAdmin.register User do
       f.input :email
       f.input :admin, :label => "Administrator"
       f.input :groups, :as => :check_boxes
-
+    
     end
 
     f.buttons

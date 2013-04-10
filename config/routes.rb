@@ -5,6 +5,8 @@ Herbapedia::Application.routes.draw do
 
   root to: 'static_pages#home'
 
+  resources :herbs
+
 
   match '/contact', to: "static_pages#contact"
 
